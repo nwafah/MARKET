@@ -1,0 +1,13 @@
+<div class="box pt-5">
+  <div class="my-2 w-25">
+    <app-select [dataSource]="categoriesDS" [title]="'Category'" (selectedValue)="selectCategory($event)"></app-select>
+  </div>
+  <div class="row" *ngIf="!loader">
+    <div class="col-md-3 col-sm-12" *ngFor="let product of productsDS">
+      <app-product [data]="product"></app-product>
+    </div>
+  </div>
+    <div class="text-center w-100" *ngIf="loader">
+      <app-spinner></app-spinner>
+    </div>
+</div>
