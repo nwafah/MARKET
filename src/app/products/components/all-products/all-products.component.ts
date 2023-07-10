@@ -13,7 +13,7 @@ export class AllProductsComponent implements OnInit {
   productsDS:any[]=[];
   categoriesDS:any[]=[];
   loader!:boolean;
-
+  cartStorage:any[]=[];
   ngOnInit(): void {
     this.getAllProducts();
     this.getAllCategories();
@@ -43,5 +43,25 @@ export class AllProductsComponent implements OnInit {
     this.getAllProducts(category.target.value);
   }
 
+  addProductToCart(product:any){ 
+    if("cart" in localStorage)
+    {
+      this.cartStorage=JSON.parse(localStorage.getItem("cart")!);
+      let exist=this.cartStorage.find(item =>item.id==product.id);
+      if(!exist){
+        this.addToCart(product);
+      }
+    }
+    else{
+      this.addToCart(product);
+    }
+    
+ 
+  }
+
+  addToCart(product:any){
+    this.cartStorage.push(product);
+    localStorage.setItem("cart",JSON.stringify(this.cartStorage));
+  }
  
 }
